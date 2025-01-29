@@ -1,0 +1,28 @@
+# Input dell'utente
+eta = input("Inserisci la tua età: ")
+
+if eta.isdigit():
+    eta = int(eta)
+    if eta < 18:
+        print("Mi dispiace, non puoi vedere questo film.")
+    else:
+        print("Puoi vedere questo film.")
+        film_lista = ["Inception", "Interstellar", "Il Signore degli Anelli"]
+        print("Ecco alcuni film che ti consiglio:")
+        print(f"1. {film_lista[0]}\n2. {film_lista[1]}\n3. {film_lista[2]}")
+        scelta_film = input("Quale film vuoi vedere? Inserisci il numero corrispondente: ")
+        if scelta_film.isdigit():
+            scelta_film = int(scelta_film)
+            if 1 <= scelta_film <= len(film_lista):
+                print(f"Hai scelto di vedere: {film_lista[scelta_film - 1]}.")
+            else:
+                print("Scelta non valida. Il numero non corrisponde a nessun film.")
+        else:
+            print("Per favore inserisci un numero valido.")
+else:
+    print("Per favore inserisci un numero valido.")
+
+
+
+
+

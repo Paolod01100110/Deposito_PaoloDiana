@@ -1,0 +1,26 @@
+
+# Lista per salvare i numeri pari
+numeri_pari = []
+
+while True:
+    # Chiedi all'utente di inserire un numero
+    numero = input("Inserisci un numero: ")
+
+    # Verifica che l'input sia un numero valido
+    if numero.isdigit():
+        numero = int(numero)
+        
+        # Controllo se il numero è pari
+        if numero % 2 == 0:
+            print("Il numero è pari.")
+            numeri_pari.append(numero)  # Salva il numero nella lista
+        else:
+            print("Il numero non è pari.")
+
+        # Chiedi all'utente se vuole continuare
+        continua = input("Vuoi inserire un altro numero? (sì/no): ").strip().lower()
+        if continua != "sì":
+            print("Grazie per aver usato il programma. A presto!")
+            break
+    else:
+        print("Per favore inserisci un numero valido.")
