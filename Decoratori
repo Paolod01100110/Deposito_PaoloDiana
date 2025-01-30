@@ -1,0 +1,7 @@
+def decoratore(funzione):
+    def wrapper():
+        print("prima dell'esecuzione della funzione")
+        funzione()
+        print("Dopo l'esecuzione della funzione")
+    return wrapper 
+        
