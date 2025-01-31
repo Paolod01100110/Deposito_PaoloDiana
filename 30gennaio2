@@ -1,0 +1,33 @@
+def calcola_area(figura):
+    if figura == "Triangolo":
+        base = float(input("Base: "))
+        altezza = float(input("Altezza: "))
+        return (base * altezza) / 2
+    elif figura == "Quadrato":
+        lato = float(input("Lato: "))
+        return lato * lato
+    elif figura == "Rettangolo":
+        base = float(input("Base: "))
+        altezza = float(input("Altezza: "))
+        return base * altezza
+
+figure = {"1": "Triangolo", "2": "Quadrato", "3": "Rettangolo"}
+risultati = []
+
+while True:
+    scelta = input("Scegli la figura (1. Triangolo, 2. Quadrato, 3. Rettangolo, 4. Esci): ")
+    if scelta == "4":
+        print("Risultati salvati:")
+        for figura, area in risultati:
+            print(f"{figura}: {area}")
+        break
+    elif scelta in figure:
+        area = calcola_area(figure[scelta])
+        print(f"L'area del {figure[scelta]} è: {area}")
+        risultati.append((figure[scelta], area))
+    else:
+        print("Scelta non valida, riprova.")
+
+
+
+
