@@ -30,3 +30,35 @@ class PayPal(MetodoPagamento):
             return "Fondi insufficienti."
         self._MetodoPagamento__saldo -= importo
         return f"Pagamento di {importo}€ effettuato tramite PayPal all'email {self.email}."
+    
+class BonificoBancario(MetodoPagamento):
+    def __init__(self, nome, iban, saldo):
+        super().__init__(nome, saldo)
+        self.iban = iban
+    
+    def effettua_pagamento(self, importo):
+        if importo > self._MetodoPagamento__saldo:
+            return "Fondi insufficienti."
+        self._MetodoPagamento__saldo -= importo
+        return f"Pagamento di {importo}€ effettuato tramite bonifico bancario all'IBAN {self.iban}."
+
+class GestorePagamenti:
+    def __init__(self, metodo_pagamento):
+        self.metodo_pagamento = metodo_pagamento
+    
+    def paga(self, importo):
+        return self.metodo_pagamento.effettua_pagamento(importo)
+    
+# Esempio di utilizzo:
+carta = CartaDiCredito("Carta Visa", "1234-5678-9012-3456", 500)
+paypal = PayPal("Account PayPal", "marco@example.com", 300)
+bonifico = BonificoBancario("Bonifico", "IT60X0542811101000000123456", 1000)
+
+gestore = GestorePagamenti(carta)
+print(gestore.paga(100))
+
+gestore = GestorePagamenti(paypal)
+print(gestore.paga(50))
+
+gestore = GestorePagamenti(bonifico)
+print(gestore.paga(200))
