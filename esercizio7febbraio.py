@@ -41,5 +41,61 @@ class Furgone(Veicolo):
     def get_capacita_carico(self):
         return self.__capacita_carico
     
+    def carica(self, peso):
+        if self._carico_attuale + peso <= self._capacita_carico: #controlla se il peso totale dopo l'aggiunta rimarrebbe entro il peso massimo
+            self.__carico_attuale += peso #somma il peso attuale piu il nuovo carico
+            print(f"{self.get_marca()} {self.get_modello()} ha caricato {peso}kg. Totale: {self.__carico_attuale}kg.")
+        else:
+            print(f"{self.get_marca()} {self.get_modello()}: Carico eccessivo! Capacità massima {self.__capacita_carico}kg.")
+
+    def scarica(self, peso):
+        if self.__carico_attuale - peso >= 0: #verifica che il carico attuale non diventi negativo dopo la rimozione
+            self.__carico_attuale -= peso #sottrae il peso scaricato
+            print(f"{self.get_marca()} {self.get_modello()} ha scaricato {peso}kg. Rimangono: {self.__carico_attuale}kg.") #mostra il nuovo peso dopo la rimozione
+        else:
+            print(f"{self.get_marca()} {self.get_modello()}: Non puoi scaricare più di quello che hai caricato!") #se si prova a scaricare piu peso di quello presente, viene mostrato un errore
+            
+# Classe Motocicletta con incapsulamento
+class Motocicletta(Veicolo):
+    def __init__(self, marca, modello, anno, tipo):
+        super()._init_(marca, modello, anno)
+        self.__tipo = tipo  # attributo privato con l'incapsulamento, ad esempio sportiva, touring, custom
+
+    def get_tipo(self):
+        return self.__tipo
+
+    def esegui_wheelie(self):
+        if self.__tipo.lower() == "sportiva": #conversione in minuscolo
+            print(f"{self.get_marca()} {self.get_modello()} esegue un wheelie!")
+        else:
+            print(f"{self.get_marca()} {self.get_modello()}: Questo tipo di moto non è adatto per i wheelie.")
+            
+# Classe GestoreParcoVeicoli con incapsulamento
+class GestoreParcoVeicoli: #non eredita, classe indipendente
+    def __init__(self):
+        self.__veicoli = [] #attributo privato con lista vuota
+
+    def aggiungi_veicolo(self, veicolo): #metodo pubblico
+        self.__veicoli.append(veicolo)
+        print(f"Veicolo {veicolo.get_marca()} {veicolo.get_modello()} aggiunto al parco.") #marca e modello sono privati quindi utilizziamo i get
+
+    def rimuovi_veicolo(self, marca, modello):
+        for veicolo in self.__veicoli: #uso il ciclo for per scorrere i veicoli dalla lista
+            if veicolo.get_marca() == marca and veicolo.get_modello() == modello: #se marca e modello corrispondono ad un veicolo presente
+                self.__veicoli.remove(veicolo) # lo rimuove
+                print(f"Veicolo {marca} {modello} rimosso dal parco.")
+                return #messaggio di conferma
+        print(f"Nessun veicolo {marca} {modello} trovato nel parco.")
+
+    def lista_veicoli(self):
+        if not self.__veicoli: #controlla se la lista è vuota
+            print("Il parco veicoli è vuoto.")
+        else:
+            print("Veicoli nel parco:") #altrimenti stampa i veicoli presenti
+            for veicolo in self.__veicoli: #ciclo for per stampare i veicoli presenti nel parco
+                print(f"- {veicolo}") #stampa direttamente l'oggetto veicolo
+                
+
+
         
  
